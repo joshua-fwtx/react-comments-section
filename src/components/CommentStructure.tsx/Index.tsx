@@ -28,6 +28,7 @@ interface CommentStructureProps {
     onLogin?: string | (() => void)
     onSignUp?: string | (() => void)
   }
+  commentHeader?: (data: any) => React.ReactNode
 }
 
 const CommentStructure = ({
@@ -35,7 +36,8 @@ const CommentStructure = ({
   editMode,
   parentId,
   replyMode,
-  showTimestamp
+  showTimestamp,
+  commentHeader
 }: CommentStructureProps) => {
   const globalStore: any = useContext(GlobalContext)
   const currentUser = globalStore.currentUserData
@@ -47,7 +49,7 @@ const CommentStructure = ({
           <Menu
             menuButton={
               <button className='actionsBtn'>
-                {' '}
+                {'Actions'}
                 <div className='optionIcon' />
               </button>
             }
@@ -126,7 +128,12 @@ const CommentStructure = ({
           <div>{info.text}</div>
           {userInfo()}
         </div>
-        {currentUser && optionsMenu()}
+        <span style={{ display: 'flex', flexDirection: 'row', gap: '4px' }}>
+          {commentHeader ? (
+            <span style={{ marginTop: '20px' }}>{commentHeader?.(info)}</span>
+          ) : null}
+          {currentUser && optionsMenu()}
+        </span>
       </div>
     )
   }
@@ -147,7 +154,6 @@ const CommentStructure = ({
             <div className='infoStyle'>{info.text}</div>
           )}
           <div style={{ marginLeft: 32 }}>
-            {' '}
             {currentUser && (
               <div>
                 <button
@@ -161,7 +167,12 @@ const CommentStructure = ({
             )}
           </div>
         </div>
-        {currentUser && optionsMenu()}
+        <span style={{ display: 'flex', flexDirection: 'row', gap: '4px' }}>
+          {commentHeader ? (
+            <span style={{ marginTop: '20px' }}>{commentHeader?.(info)}</span>
+          ) : null}
+          {currentUser && optionsMenu()}
+        </span>
       </div>
     )
   }

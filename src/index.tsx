@@ -38,6 +38,7 @@ interface CommentSectionProps {
   advancedInput?: boolean
   placeHolder?: string
   showTimestamp?: boolean
+  commentHeader?: (data: any) => React.ReactNode
   commentData: Array<{
     userId: string
     comId: string
@@ -73,6 +74,7 @@ export const CommentSection = ({
   imgStyle,
   replyTop,
   commentsCount,
+  commentHeader,
   commentData,
   placeHolder,
   showTimestamp,
@@ -114,6 +116,7 @@ export const CommentSection = ({
         hrStyle={hrStyle}
         logIn={logIn}
         titleStyle={titleStyle}
+        commentHeader={commentHeader}
         customNoComment={customNoComment}
         showTimestamp={showTimestamp}
       />

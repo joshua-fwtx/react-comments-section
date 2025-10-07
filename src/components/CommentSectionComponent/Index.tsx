@@ -18,6 +18,7 @@ interface CommentSectionProps {
   }
   hrStyle?: object
   titleStyle?: object
+  commentHeader?: (data: any) => React.ReactNode
   customNoComment?: Function
   showTimestamp?: boolean
 }
@@ -27,6 +28,7 @@ const CommentSection = ({
   logIn,
   hrStyle,
   titleStyle,
+  commentHeader,
   customNoComment,
   showTimestamp = true
 }: CommentSectionProps) => {
@@ -103,6 +105,7 @@ const CommentSection = ({
                       : true
                   }
                   logIn={logIn}
+                  commentHeader={commentHeader}
                   showTimestamp={showTimestamp}
                 />
                 {i.replies &&
@@ -124,6 +127,7 @@ const CommentSection = ({
                               : true
                           }
                           logIn={logIn}
+                          commentHeader={commentHeader}
                           showTimestamp={showTimestamp}
                         />
                       </div>
