@@ -19,6 +19,10 @@ interface AdvancedInputProps {
   customImg?: string
   text: string
   placeHolder?: string
+  replyBoxStyle?: object
+  cancelButtonStyle?: object
+  replyButtonStyle?: object
+  editorStyle?: object
 }
 
 const AdvancedInput = ({
@@ -32,7 +36,12 @@ const AdvancedInput = ({
   imgStyle,
   customImg,
   text,
-  placeHolder
+  placeHolder,
+  replyBoxStyle,
+  cancelButtonStyle,
+  replyButtonStyle,
+  //@ts-expect-error unused
+  editorStyle
 }: AdvancedInputProps) => {
   const [html, setHtml] = useState('<p></p>')
   const globalStore: any = useContext(GlobalContext)
@@ -87,7 +96,7 @@ const AdvancedInput = ({
       <div className='advanced-input'>
         <form
           className='form advanced-form '
-          style={globalStore.formStyle || formStyle}
+          style={{ ...(globalStore.formStyle || formStyle), ...replyBoxStyle }}
           onSubmit={async (e) =>
             editText != '<p></p>'
               ? (await handleSubmit(e, editText),
@@ -102,6 +111,8 @@ const AdvancedInput = ({
               onEditorStateChange={(editorState) =>
                 onEditorStateChange(editorState)
               }
+              toolbarStyle={{ color: 'black' }}
+              // toolbarStyle={editorStyle}
               toolbar={{
                 options: [
                   'inline',
@@ -179,7 +190,10 @@ const AdvancedInput = ({
             {mode && (
               <button
                 className='advanced-cancel cancelBtn'
-                style={globalStore.cancelBtnStyle || cancelBtnStyle}
+                style={{
+                  ...(globalStore.cancelBtnStyle || cancelBtnStyle),
+                  ...cancelButtonStyle
+                }}
                 type='button'
                 onClick={() =>
                   mode === 'editMode'
@@ -194,7 +208,10 @@ const AdvancedInput = ({
               className='advanced-post postBtn'
               type='submit'
               disabled={editText === '<p></p>' ? true : false}
-              style={globalStore.submitBtnStyle || submitBtnStyle}
+              style={{
+                ...(globalStore.submitBtnStyle || submitBtnStyle),
+                ...replyButtonStyle
+              }}
               onClick={async (e) =>
                 editText != '<p></p>'
                   ? (await handleSubmit(e, editText),

@@ -18,9 +18,18 @@ interface CommentSectionProps {
   }
   hrStyle?: object
   titleStyle?: object
+  replyBoxStyle?: object
   commentHeader?: (data: any) => React.ReactNode
   customNoComment?: Function
   showTimestamp?: boolean
+  disableSections?: {
+    header?: boolean
+    postBox?: boolean
+    reply?: boolean
+  }
+  replyButtonStyle?: object
+  cancelButtonStyle?: object
+  editorStyle?: object
 }
 
 const CommentSection = ({
@@ -28,9 +37,14 @@ const CommentSection = ({
   logIn,
   hrStyle,
   titleStyle,
+  replyBoxStyle,
   commentHeader,
   customNoComment,
-  showTimestamp = true
+  showTimestamp = true,
+  disableSections,
+  cancelButtonStyle,
+  replyButtonStyle,
+  editorStyle
 }: CommentSectionProps) => {
   const handleLogin = () => {
     if (typeof logIn.onLogin === 'function') {
@@ -64,23 +78,34 @@ const CommentSection = ({
 
   return (
     <div className='overlay' style={overlayStyle}>
-      <span className='comment-title' style={titleStyle}>
-        {globalStore.commentsCount || totalComments()}{' '}
-        {totalComments() === 1 ? 'Comment' : 'Comments'}
-      </span>
-      <hr className='hr-style' style={hrStyle} />
-      {globalStore.currentUserData === null ? (
-        loginMode()
-      ) : (
-        <InputField
-          placeHolder={globalStore.placeHolder}
-          formStyle={{ margin: '10px 0px' }}
-          imgDiv={{ margin: 0 }}
-        />
+      {disableSections?.header ? null : ( // hide header if disabled
+        <React.Fragment>
+          <span className='comment-title' style={titleStyle}>
+            {globalStore.commentsCount || totalComments()}{' '}
+            {totalComments() === 1 ? 'Commentamunda' : 'Commentamundos'}
+          </span>
+          <hr className='hr-style' style={hrStyle} />
+        </React.Fragment>
       )}
-
+      {disableSections?.postBox ? null : ( // hide header if disabled
+        <React.Fragment>
+          {globalStore.currentUserData === null ? (
+            loginMode()
+          ) : (
+            <InputField
+              placeHolder={globalStore.placeHolder}
+              formStyle={{ margin: '10px 0px' }}
+              imgDiv={{ margin: 0 }}
+              replyBoxStyle={replyBoxStyle}
+              cancelButtonStyle={cancelButtonStyle}
+              replyButtonStyle={replyButtonStyle}
+              editorStyle={editorStyle}
+            />
+          )}
+        </React.Fragment>
+      )}
       {globalStore.data.length > 0 ? (
-        globalStore.data.map(
+        globalStore.data?.map(
           (i: {
             userId: string
             comId: string
@@ -107,6 +132,11 @@ const CommentSection = ({
                   logIn={logIn}
                   commentHeader={commentHeader}
                   showTimestamp={showTimestamp}
+                  disableSections={disableSections}
+                  replyBoxStyle={replyBoxStyle}
+                  cancelButtonStyle={cancelButtonStyle}
+                  replyButtonStyle={replyButtonStyle}
+                  editorStyle={editorStyle}
                 />
                 {i.replies &&
                   i.replies.length > 0 &&
@@ -129,6 +159,11 @@ const CommentSection = ({
                           logIn={logIn}
                           commentHeader={commentHeader}
                           showTimestamp={showTimestamp}
+                          disableSections={disableSections}
+                          replyBoxStyle={replyBoxStyle}
+                          cancelButtonStyle={cancelButtonStyle}
+                          replyButtonStyle={replyButtonStyle}
+                          editorStyle={editorStyle}
                         />
                       </div>
                     )

@@ -18,7 +18,7 @@ const DeleteModal = ({ comId, parentId }: DeleteModalProps) => {
   return (
     <div>
       <div style={{ width: '100%' }} onClick={onOpenModal}>
-        delete
+        Delete
       </div>
       <Modal open={open} onClose={onCloseModal} center>
         <h2>Are you sure?</h2>

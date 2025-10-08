@@ -29,6 +29,15 @@ interface CommentStructureProps {
     onSignUp?: string | (() => void)
   }
   commentHeader?: (data: any) => React.ReactNode
+  disableSections?: {
+    header?: boolean
+    postBox?: boolean
+    reply?: boolean
+  }
+  replyBoxStyle?: object
+  cancelButtonStyle?: object
+  replyButtonStyle?: object
+  editorStyle?: object
 }
 
 const CommentStructure = ({
@@ -37,7 +46,12 @@ const CommentStructure = ({
   parentId,
   replyMode,
   showTimestamp,
-  commentHeader
+  commentHeader,
+  disableSections,
+  replyBoxStyle,
+  cancelButtonStyle,
+  replyButtonStyle,
+  editorStyle
 }: CommentStructureProps) => {
   const globalStore: any = useContext(GlobalContext)
   const currentUser = globalStore.currentUserData
@@ -49,7 +63,6 @@ const CommentStructure = ({
           <Menu
             menuButton={
               <button className='actionsBtn'>
-                {'Actions'}
                 <div className='optionIcon' />
               </button>
             }
@@ -57,7 +70,7 @@ const CommentStructure = ({
             <MenuItem
               onClick={() => globalStore.handleAction(info.comId, true)}
             >
-              edit
+              Edit
             </MenuItem>
             <MenuItem>
               <DeleteModal comId={info.comId} parentId={parentId} />
@@ -178,6 +191,8 @@ const CommentStructure = ({
   }
 
   const actionModeSection = (mode: string) => {
+    if (disableSections?.reply) return null // hide if replies disabled
+
     if (mode === 'reply') {
       return (
         <div className='replysection'>
@@ -192,6 +207,10 @@ const CommentStructure = ({
             fillerText={''}
             mode={'replyMode'}
             parentId={parentId}
+            replyBoxStyle={replyBoxStyle}
+            cancelButtonStyle={cancelButtonStyle}
+            replyButtonStyle={replyButtonStyle}
+            editorStyle={editorStyle}
           />
         </div>
       )
@@ -207,6 +226,10 @@ const CommentStructure = ({
           fillerText={info.text}
           mode={'editMode'}
           parentId={parentId}
+          replyBoxStyle={replyBoxStyle}
+          cancelButtonStyle={cancelButtonStyle}
+          replyButtonStyle={replyButtonStyle}
+          editorStyle={editorStyle}
         />
       )
     }

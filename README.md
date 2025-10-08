@@ -1,11 +1,13 @@
 # react-comments-section
 
+Revised from original package to include more features.
+
 ## Install
 
 Install the latest version!
 
 ```bash
-npm i react-comments-section
+npm i react-comments-section-header
 ```
 
 ## Detailed Documentation : https://riyanegi.github.io/react-comments-documentation/

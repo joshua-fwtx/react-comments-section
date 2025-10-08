@@ -18,6 +18,10 @@ interface RegularInputProps {
   text: string
   setText: Function
   placeHolder?: string
+  replyBoxStyle?: object
+  cancelButtonStyle?: object
+  replyButtonStyle?: object
+  editorStyle?: object
 }
 
 const RegularInput = ({
@@ -33,14 +37,19 @@ const RegularInput = ({
   handleSubmit,
   text,
   setText,
-  placeHolder
+  placeHolder,
+  replyBoxStyle,
+  cancelButtonStyle,
+  replyButtonStyle,
+  //@ts-expect-error used elsewheres
+  editorStyle
 }: RegularInputProps) => {
   const globalStore: any = useContext(GlobalContext)
 
   return (
     <form
       className='form'
-      style={globalStore.formStyle || formStyle}
+      style={{ ...(globalStore.formStyle || formStyle), ...replyBoxStyle }}
       onSubmit={() => handleSubmit}
     >
       <div className='userImg' style={imgDiv}>
@@ -86,7 +95,10 @@ const RegularInput = ({
       {mode && (
         <button
           className='cancelBtn'
-          style={globalStore.cancelBtnStyle || cancelBtnStyle}
+          style={{
+            ...(globalStore.cancelBtnStyle || cancelBtnStyle),
+            ...cancelButtonStyle
+          }}
           type='button'
           onClick={() =>
             mode === 'editMode'
@@ -101,7 +113,10 @@ const RegularInput = ({
         className='postBtn'
         type='submit'
         disabled={text != '' ? false : true}
-        style={globalStore.submitBtnStyle || submitBtnStyle}
+        style={{
+          ...(globalStore.submitBtnStyle || submitBtnStyle),
+          ...replyButtonStyle
+        }}
         onClick={(e) => (text ? handleSubmit(e) : null)}
       >
         Post

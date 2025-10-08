@@ -16,9 +16,13 @@ interface InputFieldProps {
   inputStyle?: object
   cancelBtnStyle?: object
   submitBtnStyle?: object
+  replyBoxStyle?: object
   imgStyle?: object
   imgDiv?: object
   placeHolder?: string
+  cancelButtonStyle?: object
+  replyButtonStyle?: object
+  editorStyle?: object
 }
 
 const InputField = ({
@@ -31,9 +35,13 @@ const InputField = ({
   inputStyle,
   cancelBtnStyle,
   submitBtnStyle,
+  replyBoxStyle,
   imgStyle,
   imgDiv,
-  placeHolder
+  placeHolder,
+  cancelButtonStyle,
+  replyButtonStyle,
+  editorStyle
 }: InputFieldProps) => {
   const [text, setText] = useState('')
 
@@ -127,11 +135,14 @@ const InputField = ({
           mode={mode}
           cancelBtnStyle={cancelBtnStyle}
           submitBtnStyle={submitBtnStyle}
+          replyBoxStyle={replyBoxStyle}
           comId={comId}
           imgDiv={imgDiv}
           imgStyle={imgStyle}
           customImg={customImg}
           placeHolder={placeHolder}
+          cancelButtonStyle={cancelButtonStyle}
+          replyButtonStyle={replyButtonStyle}
         />
       ) : (
         <RegularInput
@@ -142,12 +153,16 @@ const InputField = ({
           mode={mode}
           inputStyle={inputStyle}
           cancelBtnStyle={cancelBtnStyle}
+          replyBoxStyle={replyBoxStyle}
           comId={comId}
           submitBtnStyle={submitBtnStyle}
           handleSubmit={handleSubmit}
           text={text}
           setText={setText}
           placeHolder={placeHolder}
+          cancelButtonStyle={cancelButtonStyle}
+          replyButtonStyle={replyButtonStyle}
+          editorStyle={editorStyle}
         />
       )}
     </div>

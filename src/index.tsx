@@ -25,6 +25,7 @@ interface CommentSectionProps {
   overlayStyle?: object
   imgStyle?: object
   replyInputStyle?: object
+  replyBoxStyle?: object
   commentsCount?: number
   hrStyle?: object
   titleStyle?: object
@@ -59,6 +60,14 @@ interface CommentSectionProps {
         }>
       | undefined
   }>
+  disableSections?: {
+    header?: boolean
+    postBox?: boolean
+    reply?: boolean
+  }
+  replyButtonStyle?: object
+  cancelButtonStyle?: object
+  editorStyle?: object
 }
 
 export const CommentSection = ({
@@ -70,6 +79,7 @@ export const CommentSection = ({
   cancelBtnStyle,
   overlayStyle,
   replyInputStyle,
+  replyBoxStyle,
   logIn,
   imgStyle,
   replyTop,
@@ -87,7 +97,11 @@ export const CommentSection = ({
   onEditAction,
   customNoComment,
   currentData,
-  advancedInput
+  advancedInput,
+  disableSections,
+  replyButtonStyle,
+  cancelButtonStyle,
+  editorStyle
 }: CommentSectionProps) => {
   return (
     <GlobalProvider
@@ -119,6 +133,11 @@ export const CommentSection = ({
         commentHeader={commentHeader}
         customNoComment={customNoComment}
         showTimestamp={showTimestamp}
+        disableSections={disableSections}
+        replyBoxStyle={replyBoxStyle}
+        replyButtonStyle={replyButtonStyle}
+        cancelButtonStyle={cancelButtonStyle}
+        editorStyle={editorStyle}
       />
     </GlobalProvider>
   )
