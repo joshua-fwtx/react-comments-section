@@ -1,6 +1,6 @@
 {
   "name": "react-comments-section-header",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "React component library for a functioning comments section (with an added ReactNode header)",
   "author": "RiyaNegi",
   "license": "MIT",
@@ -77,6 +77,7 @@
     "html-to-draftjs": "^1.5.0",
     "react-draft-wysiwyg": "^1.14.7",
     "react-responsive-modal": "^6.2.0",
-    "sass": "^1.51.0"
+    "sass": "^1.51.0",
+    "uuid": "^13.0.0"
   }
 }
